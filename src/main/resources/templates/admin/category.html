@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div layout:fragment="adminContent">
+    <div th:replace="fragments/header :: header('Category Management')"></div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" th:action="@{/admin/categories}" th:object="${category}">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           placeholder="Category name"
+                                           th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+                                           th:field="*{name}">
+                                    <span th:if="${#fields.hasErrors('name')}"
+                                          class="error invalid-feedback"
+                                          th:text="${#fields.errors('name').get(0)}">
+                                        Error Message here
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-10">
+            <div class="callout callout-info p-2">
+                <p>Follow the steps to continue to payment.</p>
+            </div>
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-block btn-primary">Edit</button>
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-block btn-danger">Delete</button>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
