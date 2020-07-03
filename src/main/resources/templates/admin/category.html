@@ -24,45 +24,53 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" th:action="@{/admin/categories}" th:object="${category}">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <input type="text" class="form-control"
-                                           placeholder="Category name"
-                                           th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
-                                           th:field="*{name}">
-                                    <span th:if="${#fields.hasErrors('name')}"
-                                          class="error invalid-feedback"
-                                          th:text="${#fields.errors('name').get(0)}">
+                        <form id="form" method="post" th:action="@{/admin/categories}" th:object="${category}">
+                            <div class="card-body row">
+                                <div class="col-11">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"
+                                               placeholder="Category name"
+                                               th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+                                               th:field="*{name}">
+                                        <span th:if="${#fields.hasErrors('name')}"
+                                              class="error invalid-feedback"
+                                              th:text="${#fields.errors('name').get(0)}">
                                         Error Message here
                                     </span>
+                                    </div>
                                 </div>
+                                <div class="col-1">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+
                             </div>
                             <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <div class="row">
+    <div class="row" th:each="data: ${categoryList}">
         <div class="col-10">
             <div class="callout callout-info p-2">
-                <p>Follow the steps to continue to payment.</p>
+                <p th:text="${data.name}">Follow the steps to continue to payment.</p>
             </div>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-block btn-primary">Edit</button>
+            <button type="button"
+                    class="btn btn-block btn-primary btnEdit"
+                    th:data-id="${data.id}"
+                    th:data-name="${data.name}">Edit</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-block btn-danger">Delete</button>
+            <button type="button" class="btn btn-block btn-danger btnDelete">Delete</button>
         </div>
     </div>
 
 </div>
+<th:block layout:fragment="scripts">
+    <script src="/js/category.js"></script>
+</th:block>
 </body>
 </html>

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -27,6 +24,8 @@ public class CategoryController {
 
     @GetMapping
     public String categoryView(@ModelAttribute("category") Category category, ModelMap map){
+
+        map.addAttribute("categoryList", categoryService.findAll());
         map.addAttribute("category", category);
         return CATEGORY_VIEW_NAME;
     }
@@ -34,17 +33,33 @@ public class CategoryController {
     @PostMapping
     public String saveCategory(@Valid @ModelAttribute("category") Category category,
                                BindingResult result,
-                               RedirectAttributes redirect){
+                               RedirectAttributes redirect,
+                               ModelMap map){
         if (result.hasErrors()){
-            System.out.println("Error");
-            return CATEGORY_VIEW_NAME;
+            return categoryView(category, map);
         }
-        System.out.println(category);
         if (categoryService.save(category) != null){
             redirect.addFlashAttribute("successful", "message");
             redirect.addFlashAttribute("true", "isSave");
         }
 
         return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/{id}")
+    public String editCategory(@Valid @ModelAttribute("category") Category category,
+                               RedirectAttributes redirect){
+
+        if (categoryService.edit(category) != null)
+        {
+            redirect.addFlashAttribute("successful", "message");
+            redirect.addFlashAttribute("true", "isSave");
+        }
+        return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteCategory(@PathVariable int id){
+        return "under testing";
     }
 }
