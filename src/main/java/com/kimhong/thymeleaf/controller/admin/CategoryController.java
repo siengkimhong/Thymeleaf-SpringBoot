@@ -60,6 +60,7 @@ public class CategoryController {
 
     @GetMapping("/{id}/delete")
     public String deleteCategory(@PathVariable int id){
-        return "under testing";
+        categoryService.delete(id);
+        return "redirect:/admin/categories";
     }
 }

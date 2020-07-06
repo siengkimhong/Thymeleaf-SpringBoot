@@ -64,11 +64,15 @@
                     th:data-name="${data.name}">Edit</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-block btn-danger btnDelete">Delete</button>
+            <button type="button"
+                    class="btn btn-block btn-danger btnDelete"
+                    data-toggle="modal"
+                    data-target="#modalConfirmDelete" th:data-id="${data.id}">Delete</button>
         </div>
     </div>
-
+    <div th:replace="fragments/modal :: modalConfirmDelete"></div>
 </div>
+
 <th:block layout:fragment="scripts">
     <script src="/js/category.js"></script>
 </th:block>
