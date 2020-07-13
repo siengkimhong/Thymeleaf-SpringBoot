@@ -5,20 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/users")
 public class UserController {
 
-    private final String ADD_USER_VIEW = "/admin/user-add";
-    private final String ADD_USER_URL = "/admin/user/add";
+    private final String ADD_USER_VIEW = "admin/user-add";
+    private final String ADD_USER_URL = "/admin/users/add";
     private final UserServiceImp userService;
 
     @Autowired
@@ -28,31 +30,32 @@ public class UserController {
 
     @GetMapping("/add")
     public String addUserView(@ModelAttribute User user,
-                              @ModelAttribute String confirm,
                               ModelMap map){
         map.addAttribute("user", user);
-        map.addAttribute("confirm", confirm);
         return ADD_USER_VIEW;
     }
 
     @PostMapping("/add")
-    public String addUserAction(User user, String confirm,
-                                RedirectAttributes redirect,
-                                BindingResult result
+    public String addUserAction(@Valid @ModelAttribute User user,
+                                BindingResult result,
+                                ModelMap map
                                 ){
 
         if (result.hasErrors()){
-            return ADD_USER_VIEW;
-        }
-        if (!user.getPassword().equals(confirm)){
-            redirect.addFlashAttribute("pwdError", true);
-            redirect.addFlashAttribute("user", user);
-            redirect.addFlashAttribute("message", "Password doesn't match");
-            return "redirect:" + ADD_USER_URL;
+            System.out.println(result.getFieldErrors());
+            return addUserView(user, map);
         }
 
         user.setUserId(UUID.randomUUID().toString());
         userService.saveUser(user);
         return ADD_USER_VIEW;
+    }
+
+    @GetMapping
+    public String viewUser(){
+//        map.addAttribute("user", user);
+//        map.addAttribute("users", userService.findAll());
+        System.out.println("action user view");
+        return "/admin/user-view";
     }
 }

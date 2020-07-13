@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" th:action="@{/test}" th:object="${testing}">
+    <input th:field="*{firstName}" type="text" name="firstName"
+           class="form-control"
+           th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}">
+    <button type="submit">submit</button>
+</form>
+</body>
+</html>

@@ -16,12 +16,13 @@
 
         <div class="card">
             <div class="card-body register-card-body">
-                <form th:action="@{/admin/users/add}" method="post" th:object="${user}">
+                <form method="post" th:action="@{/admin/users/add}"  th:object="${user}" id="formAddUser">
                     <div class="row">
                         <div class="col-6">
                             <div class="input-group mb-3">
                                 <input th:field="*{firstName}"
                                        type="text" class="form-control"
+                                       th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}"
                                        placeholder="First Name">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -62,7 +63,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input th:field="${confirm}" id="inputConfirmedPassword" type="password" class="form-control" placeholder="Retype password">
+                        <input th:name="confirm" id="inputConfirmedPassword" type="password" class="form-control" placeholder="Retype password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -71,7 +72,7 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <button type="submit" class="btn bg-gradient-info btn-block">Cancel</button>
+                            <a type="button" class="btn bg-gradient-info btn-block">Cancel</a>
                         </div>
                         <div class="col-6">
                             <button id="btnSaveUser" type="submit" class="btn bg-gradient-green btn-block">Register</button>
@@ -81,24 +82,19 @@
             </div>
             <!-- /.form-box -->
         </div>
-        <div th:replace="~{/fragments/modal :: modalMessage(message = ${message})}">
+        <div th:replace="~{/fragments/modal :: modalMessage(message = ${ErrorMessage})}">
 
         </div>
     </div>
-    <th:block layout:fragment="scripts">
-        <script th:inline="javascript">
-            $(function () {
-                $('#btnSaveUser').on('click', function (e) {
-                    e.preventDefault();
-                    if([[${pwdError}]]){
-                        $('#modalMessage').modal.show();
-                    }
-
-                });
-            })
-        </script>
-    </th:block>
-
-
+<!--    <th:block layout:fragment="scripts">-->
+<!--        <script th:inline="javascript">-->
+<!--            if ([[${isError}]]){-->
+<!--                $('#modalMessage').modal('show');-->
+<!--            }-->
+<!--        </script>-->
+<!--    </th:block>-->
+<th:block layout:fragment="scripts">
+    <script src="/js/user.js"></script>
+</th:block>
 </body>
 </html>
