@@ -20,3 +20,77 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalArticle" class="modal fade show" id="modalArticle" aria-modal="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Article</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="post" th:action="@{/admin/articles}" th:object="${article}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select class="custom-select" th:field="*{category.id}">
+                                <option disabled="disabled"
+                                        selected="selected"
+                                        value=0>Choose category...</option>
+                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input th:field="*{title}" type="text" class="form-control" placeholder="Enter title...">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea th:field="*{description}" class="form-control"
+                                      rows="3"
+                                      placeholder="Enter description..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Thumbnail</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="file">
+                                    <label class="custom-file-label">Choose file...</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalMessage(message)" class="modal fade show" id="modalMessage" aria-modal="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Article</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+

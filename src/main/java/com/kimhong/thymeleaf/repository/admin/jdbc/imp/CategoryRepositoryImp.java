@@ -1,7 +1,7 @@
-package com.kimhong.thymeleaf.repository.admin.imp;
+package com.kimhong.thymeleaf.repository.admin.jdbc.imp;
 
 import com.kimhong.thymeleaf.model.Category;
-import com.kimhong.thymeleaf.repository.admin.CategoryRepository;
+import com.kimhong.thymeleaf.repository.admin.jdbc.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

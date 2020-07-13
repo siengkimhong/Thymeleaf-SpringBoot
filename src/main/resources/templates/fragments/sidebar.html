@@ -42,7 +42,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a th:href="@{/admin/users/add}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add User</p>
                             </a>
@@ -61,6 +61,15 @@
                         <p>
                             Category
 <!--                            <span class="right badge badge-danger">New</span>-->
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/articles}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Article Management
+                            <!--                            <span class="right badge badge-danger">New</span>-->
                         </p>
                     </a>
                 </li>

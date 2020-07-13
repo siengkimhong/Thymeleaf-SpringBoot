@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add User</title>
+</head>
+<body>
+    <div layout:fragment="adminContent">
+        <div th:replace="fragments/header :: header('Add User')"></div>
+
+        <div class="card">
+            <div class="card-body register-card-body">
+                <form th:action="@{/admin/users/add}" method="post" th:object="${user}">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <input th:field="*{firstName}"
+                                       type="text" class="form-control"
+                                       placeholder="First Name">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <input th:field="*{lastName}"
+                                       type="text" class="form-control"
+                                       placeholder="Last Name">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input th:field="*{email}" type="email"
+                               class="form-control"
+                               placeholder="Email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="inputPassword" th:field="*{password}" type="password" class="form-control" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input th:field="${confirm}" id="inputConfirmedPassword" type="password" class="form-control" placeholder="Retype password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn bg-gradient-info btn-block">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button id="btnSaveUser" type="submit" class="btn bg-gradient-green btn-block">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.form-box -->
+        </div>
+        <div th:replace="~{/fragments/modal :: modalMessage(message = ${message})}">
+
+        </div>
+    </div>
+    <th:block layout:fragment="scripts">
+        <script th:inline="javascript">
+            $(function () {
+                $('#btnSaveUser').on('click', function (e) {
+                    e.preventDefault();
+                    if([[${pwdError}]]){
+                        $('#modalMessage').modal.show();
+                    }
+
+                });
+            })
+        </script>
+    </th:block>
+
+
+</body>
+</html>

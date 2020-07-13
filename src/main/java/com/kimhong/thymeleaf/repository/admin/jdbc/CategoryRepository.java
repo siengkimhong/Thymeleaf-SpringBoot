@@ -1,4 +1,4 @@
-package com.kimhong.thymeleaf.repository.admin;
+package com.kimhong.thymeleaf.repository.admin.jdbc;
 
 import com.kimhong.thymeleaf.model.Category;
 
