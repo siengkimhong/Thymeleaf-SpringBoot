@@ -52,10 +52,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String viewUser(){
-//        map.addAttribute("user", user);
-//        map.addAttribute("users", userService.findAll());
-        System.out.println("action user view");
+    public String viewUser(@ModelAttribute User user, ModelMap map){
+        map.addAttribute("users", userService.findAll());
         return "/admin/user-view";
     }
 }

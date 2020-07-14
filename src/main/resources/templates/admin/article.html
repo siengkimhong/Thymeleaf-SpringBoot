@@ -90,7 +90,10 @@
             <!-- /.card -->
         </div>
     </div>
-    <div th:replace="fragments/modal :: modalArticle"></div>
+    <div th:replace="fragments/modal :: modalArticle(NewArticle)"></div>
 </div>
+<th:block layout:fragment="scripts">
+    <script src="/js/article.js"></script>
+</th:block>
 </body>
 </html>

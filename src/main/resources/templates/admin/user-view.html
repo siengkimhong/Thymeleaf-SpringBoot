@@ -13,7 +13,45 @@
 <body>
 <div layout:fragment="adminContent">
     <div th:replace="fragments/header :: header('View user')"></div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${user.id}">1</td>
+                            <td th:text="${user.firstName}">Kimhong</td>
+                            <td th:text="${user.lastName}">Sieng</td>
+                            <td th:text="${user.email}">kimhongora@gmail.com</td>
+                            <td>
+                                <button class="btn btn-primary btnUserEdit" type="button">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btnUserDelete" type="button">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
 
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+    <div th:replace="fragments/modal :: modal"
 </div>
 </body>
 </html>

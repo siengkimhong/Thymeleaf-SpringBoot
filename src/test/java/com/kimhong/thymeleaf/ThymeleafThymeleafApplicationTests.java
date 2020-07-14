@@ -1,6 +1,7 @@
 package com.kimhong.thymeleaf;
 
 import com.kimhong.thymeleaf.model.User;
+import com.kimhong.thymeleaf.service.Imp.ArticleServiceImp;
 import com.kimhong.thymeleaf.service.Imp.UserServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ class ThymeleafThymeleafApplicationTests {
 
     @Autowired
     private UserServiceImp userService;
+    @Autowired
+    private ArticleServiceImp articleService;
 
     @Test
     void saveUser(){
@@ -66,6 +69,11 @@ class ThymeleafThymeleafApplicationTests {
     @Test
     void contextLoads() {
 
+    }
+
+    @Test
+    void showAllArticle(){
+        articleService.findAll();
     }
 
 }
