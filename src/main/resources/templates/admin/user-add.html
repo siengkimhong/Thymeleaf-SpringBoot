@@ -19,6 +19,7 @@
                 <form method="post" th:action="@{/admin/users/add}"  th:object="${user}" id="formAddUser">
                     <div class="row">
                         <div class="col-6">
+                            <input class="user-id-hidden" type="hidden" th:field="${user.userId}">
                             <div class="input-group mb-3">
                                 <input th:field="*{firstName}"
                                        type="text" class="form-control"
@@ -54,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 password">
                         <input id="inputPassword" th:field="*{password}" type="password" class="form-control" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -62,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 password">
                         <input th:name="confirm" id="inputConfirmedPassword" type="password" class="form-control" placeholder="Retype password">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -75,7 +76,9 @@
                             <a type="button" class="btn bg-gradient-info btn-block">Cancel</a>
                         </div>
                         <div class="col-6">
-                            <button id="btnSaveUser" type="submit" class="btn bg-gradient-green btn-block">Register</button>
+                            <button id="btnSaveUser"
+                                    type="submit"
+                                    class="btn bg-gradient-green btn-block">Register</button>
                         </div>
                     </div>
                 </form>
@@ -86,14 +89,15 @@
 
         </div>
     </div>
-<!--    <th:block layout:fragment="scripts">-->
-<!--        <script th:inline="javascript">-->
-<!--            if ([[${isError}]]){-->
-<!--                $('#modalMessage').modal('show');-->
-<!--            }-->
-<!--        </script>-->
-<!--    </th:block>-->
 <th:block layout:fragment="scripts">
+    <script type="text/javascript" th:inline="javascript">
+        if ([[${is_update}]]){
+            $('.password').css('display', 'none');
+            let id = $('.user-id-hidden').val();
+            $('#formAddUser').attr('action', '/admin/users/update/' + id);
+        }
+    </script>
+
     <script src="/js/user.js"></script>
 </th:block>
 </body>

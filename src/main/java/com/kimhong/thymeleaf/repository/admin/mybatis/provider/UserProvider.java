@@ -43,4 +43,12 @@ public class UserProvider {
             WHERE("user_id = #{userId}");
         }}.toString();
     }
+
+    public String deleteUserSQL(String userId){
+        return new SQL(){{
+            UPDATE("users");
+            SET("status=false");
+            WHERE("user_id = #{userId}");
+        }}.toString();
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -42,7 +43,7 @@ public class ArticleController {
         map.addAttribute("categories", categoryService.findAll());
         map.addAttribute("article", article);
         map.addAttribute("articles", articleService.findAll());
-        System.out.println(articleService.findAll());
+        //System.out.println(articleService.findAll());
         return "/admin/article";
     }
 
@@ -58,8 +59,30 @@ public class ArticleController {
         article.setPublishedDate(new Date(System.currentTimeMillis()));
         article.setThumbnail(uri);
         articleService.save(article);
-
         return "redirect:" + MAIN_URL;
     }
 
+    @PostMapping("/{articleId}/update")
+    public String updateArticleById(@PathVariable String articleId,
+                                    @ModelAttribute Article newArticle,
+                                    @RequestParam("file") MultipartFile file) throws IOException {
+
+        if (!file.isEmpty()){
+            String fileName = file.getOriginalFilename();
+            String uri = UUID.randomUUID() + fileName.substring(fileName.indexOf("."));
+            Files.copy(file.getInputStream(), Paths.get(serverPath + uri));
+            newArticle.setThumbnail(uri);
+        }
+        newArticle.setArticleId(articleId);
+        articleService.update(newArticle);
+        System.out.println("Updat Controller " + newArticle);
+        return "redirect:" + MAIN_URL;
+    }
+
+
+    @GetMapping("/{articleId}/delete")
+    public String deleteArticleById(@PathVariable String articleId){
+        articleService.delete(articleId);
+        return "redirect:" + MAIN_URL;
+    }
 }

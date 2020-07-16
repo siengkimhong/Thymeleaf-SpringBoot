@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>User</title>
 </head>
 <body>
 <div layout:fragment="adminContent">
@@ -28,16 +28,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user: ${users}">
-                            <td th:text="${user.id}">1</td>
+                        <tr th:each="user, state: ${users}">
+                            <td th:text="${state.count}">1</td>
                             <td th:text="${user.firstName}">Kimhong</td>
                             <td th:text="${user.lastName}">Sieng</td>
                             <td th:text="${user.email}">kimhongora@gmail.com</td>
                             <td>
-                                <button class="btn btn-primary btnUserEdit" type="button">
-                                    <i class="fas fa-edit"></i>
+                                <button th:data-id="${user.userId}"
+                                        th:data-first-name="${user.firstName}"
+                                        th:data-last-name="${user.lastName}"
+                                        th:data-email="${user.email}"
+                                        class="btn btn-primary btnUserView" type="button">
+                                    <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-danger btnUserDelete" type="button">
+                                <a th:href="@{/admin/users/update/{userId}(userId=${user.userId})}" th:data-id="${user.userId}"
+                                        th:data-first-name="${user.firstName}"
+                                        th:data-last-name="${user.lastName}"
+                                        th:data-email="${user.email}"
+                                        class="btn btn-primary btnUserEdit" type="button">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button th:data-id="${user.userId}"
+                                        class="btn btn-danger btnUserDelete" type="button">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -51,7 +63,35 @@
             <!-- /.card -->
         </div>
     </div>
-    <div th:replace="fragments/modal :: modal"
+    <div th:replace="fragments/modal :: modalUser"></div>
+    <div th:replace="fragments/modal :: modalConfirmDelete"></div>
+    <div th:replace="fragments/modal :: modalUserView"></div>
 </div>
+<th:block layout:fragment="scripts">
+    <script type="text/javascript" th:inline="javascript">
+        $('.btnUserDelete').on('click', function (e) {
+            e.preventDefault();
+            let userId = $(this).data('id');
+            $('#modalConfirmDelete').modal('show');
+            $('.modal-body').text('Are you sure to delete user?');
+            $('.btnConfirmDelete').attr('href', '/admin/users/delete/' + userId);
+        })
+
+        $('.btnUserView').on('click', function (e) {
+            e.preventDefault();
+            let firstName = $(this).data('first-name');
+            let lastName = $(this).data('last-name');
+            let email = $(this).data('email');
+            $('#modalUserView').modal('show');
+            $('.modal-title').text('User View');
+            $('#modalUserView-firstName').val(firstName);
+            $('#modalUserView-lastName').val(lastName);
+            $('#modalUserView-email').val(email);
+
+        })
+    </script>
+
+    <script src="/js/user.js"></script>
+</th:block>
 </body>
 </html>

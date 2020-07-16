@@ -9,11 +9,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete Category?</p>
+                <p class="message-body">Are you sure you want to delete Category?</p>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="#" type="button" class="btn btn-danger btnCategoryConfirmDelete">Delete</a>
+                <a href="#" type="button" class="btn btn-danger btnConfirmDelete">Delete</a>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -30,11 +30,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" method="post" th:action="@{/admin/articles}" th:object="${article}" enctype="multipart/form-data">
+                <form id="article-form" role="form" method="post" th:action="@{/admin/articles}" th:object="${article}" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="form-group">
                             <label>Category</label>
-                            <select class="custom-select" th:field="*{category.id}">
+                            <select id="categoryId" class="custom-select" th:field="*{category.id}">
                                 <option disabled="disabled"
                                         selected="selected"
                                         value=0>Choose category...</option>
@@ -43,11 +43,11 @@
                         </div>
                         <div class="form-group">
                             <label>Title</label>
-                            <input th:field="*{title}" type="text" class="form-control" placeholder="Enter title...">
+                            <input id="article-title" th:field="*{title}" type="text" class="form-control" placeholder="Enter title...">
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea th:field="*{description}" class="form-control"
+                            <textarea id="article-description" th:field="*{description}" class="form-control"
                                       rows="3"
                                       placeholder="Enter description..."></textarea>
                         </div>
@@ -55,6 +55,7 @@
                             <label>Thumbnail</label>
                             <div class="input-group">
                                 <div class="custom-file">
+                                    <input id="thumbnail" type="hidden" th:field="*{thumbnail}">
                                     <input type="file" class="custom-file-input" name="file">
                                     <label class="custom-file-label">Choose file...</label>
                                 </div>
@@ -92,7 +93,6 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="modalUser" class="modal fade show" id="modalUser" aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -130,4 +130,60 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalView" class="modal fade show w-75" id="modalView" aria-modal="true">
+    <div class="modal-dialog">
+        <div class="modal-content align-content-center">
+            <div class="modal-header">
+                <h4 class="modal-title">Article</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <img id="article-view-thumbnail" class="card-img-top" src="" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 id="article-view-title" class="card-title"></h5>
+                        <p id="article-view-description" class="card-text"></p>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalUserView" class="modal fade show" id="modalUserView" aria-modal="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Default Modal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="card-body">
+                        <div>
+                            <label for="modalUserView-firstName">First Name</label>
+                            <input type="text" class="form-control" id="modalUserView-firstName">
+                        </div>
+                        <div>
+                            <label for="modalUserView-lastName">Last Name</label>
+                            <input type="text" class="form-control" id="modalUserView-lastName">
+                        </div>
+                        <div>
+                            <label for="modalUserView-email">Email address</label>
+                            <input type="email" class="form-control" id="modalUserView-email">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

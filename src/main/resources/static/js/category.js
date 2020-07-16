@@ -13,7 +13,8 @@ $(function () {
     $('.btnDelete').on('click', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
-        $('.btnCategoryConfirmDelete').attr('href', '/admin/categories/' + id + '/delete');
+        $('.message-body').text("Are you you want to delete Category?" + id);
+        $('.btnConfirmDelete').attr('href', '/admin/categories/' + id + '/delete');
     })
 
 })

@@ -11,9 +11,9 @@ $(function () {
         }
     });
 
-    $('.btnUserEdit').on('click', function (e)
-    {
-        e.preventDefault();
-        $('#modalUser').modal('show');
-    });
+    // $('.btnUserEdit').on('click', function (e)
+    // {
+    //     e.preventDefault();
+    //     $('#modalUser').modal('show');
+    // });
 })

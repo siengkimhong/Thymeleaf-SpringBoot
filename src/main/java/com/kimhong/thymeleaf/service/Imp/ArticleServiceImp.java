@@ -12,9 +12,6 @@ import java.util.List;
 public class ArticleServiceImp implements ArticleService {
 
     final private ArticleRepositoryImp articleRepository;
-
-
-
     @Autowired
     public ArticleServiceImp(ArticleRepositoryImp articleRepository) {
         this.articleRepository = articleRepository;
@@ -39,11 +36,11 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public void delete(String articleId) {
-
+        articleRepository.delete(articleId);
     }
 
     @Override
     public void update(Article updateArticle) {
-
+        articleRepository.update(updateArticle);
     }
 }

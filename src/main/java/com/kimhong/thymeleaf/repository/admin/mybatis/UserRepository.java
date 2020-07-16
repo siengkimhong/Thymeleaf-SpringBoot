@@ -37,8 +37,9 @@ public interface UserRepository {
     @UpdateProvider(type = UserProvider.class, method = "updateUserSQL")
     boolean updateByUserId(User newUser);
 
-    @Update("UPDATE users SET " +
-            "status = false " +
-            "WHERE user_id = #{userId}")
+//    @Update("UPDATE users SET " +
+//            "status = false " +
+//            "WHERE user_id = #{userId}")
+    @UpdateProvider(type = UserProvider.class, method = "deleteUserSQL")
     boolean deleteByUserId(String userId);
 }

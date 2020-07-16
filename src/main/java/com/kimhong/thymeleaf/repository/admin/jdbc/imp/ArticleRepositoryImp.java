@@ -2,6 +2,7 @@ package com.kimhong.thymeleaf.repository.admin.jdbc.imp;
 
 import com.kimhong.thymeleaf.model.Article;
 import com.kimhong.thymeleaf.repository.admin.jdbc.ArticleRepository;
+import com.kimhong.thymeleaf.repository.admin.jdbc.mapper.ArticleRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,7 +46,7 @@ public class ArticleRepositoryImp implements ArticleRepository {
     @Override
     public List<Article> findAll() {
         String sql = "SELECT * FROM articles where status=true order by id desc";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Article.class));
+        return jdbcTemplate.query(sql, new ArticleRowMapper());
     }
 
     @Override
@@ -55,11 +56,18 @@ public class ArticleRepositoryImp implements ArticleRepository {
 
     @Override
     public int delete(String articleId) {
-        return 0;
+        String SQL = "UPDATE articles set status=false where article_id=?";
+        return jdbcTemplate.update(SQL, articleId);
     }
 
     @Override
     public int update(Article newArticle) {
-        return 0;
+        String SQL = "UPDATE articles set title=?, description=?, thumbnail=?, category_id=? where article_id=?";
+        return jdbcTemplate.update(SQL,
+                newArticle.getTitle(),
+                newArticle.getDescription(),
+                newArticle.getThumbnail(),
+                newArticle.getCategory().getId(),
+                newArticle.getArticleId());
     }
 }
