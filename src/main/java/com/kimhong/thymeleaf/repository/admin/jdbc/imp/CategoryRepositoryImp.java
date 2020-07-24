@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,12 +65,11 @@ public class CategoryRepositoryImp implements CategoryRepository {
         }, new ResultSetExtractor<Category>() {
             @Override
             public Category extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if (resultSet.next()){
+                if (resultSet.next()) {
                     return new Category(resultSet.getInt("id"),
                             resultSet.getString("name"),
                             resultSet.getBoolean("status"));
-                }
-                else{
+                } else {
                     return null;
                 }
             }

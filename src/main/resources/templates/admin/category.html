@@ -61,13 +61,15 @@
             <button type="button"
                     class="btn btn-block btn-primary btnEdit"
                     th:data-id="${data.id}"
-                    th:data-name="${data.name}">Edit</button>
+                    th:data-name="${data.name}">Edit
+            </button>
         </div>
         <div class="col-1">
             <button type="button"
                     class="btn btn-block btn-danger btnDelete"
                     data-toggle="modal"
-                    data-target="#modalConfirmDelete" th:data-id="${data.id}">Delete</button>
+                    data-target="#modalConfirmDelete" th:data-id="${data.id}">Delete
+            </button>
         </div>
     </div>
     <div th:replace="fragments/modal :: modalConfirmDelete"></div>

@@ -11,88 +11,92 @@
     <title>Add User</title>
 </head>
 <body>
-    <div layout:fragment="adminContent">
-        <div th:replace="fragments/header :: header('Add User')"></div>
+<div layout:fragment="adminContent">
+    <div th:replace="fragments/header :: header('Add User')"></div>
 
-        <div class="card">
-            <div class="card-body register-card-body">
-                <form method="post" th:action="@{/admin/users/add}"  th:object="${user}" id="formAddUser">
-                    <div class="row">
-                        <div class="col-6">
-                            <input class="user-id-hidden" type="hidden" th:field="${user.userId}">
-                            <div class="input-group mb-3">
-                                <input th:field="*{firstName}"
-                                       type="text" class="form-control"
-                                       th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}"
-                                       placeholder="First Name">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input th:field="*{lastName}"
-                                       type="text" class="form-control"
-                                       placeholder="Last Name">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
-                                    </div>
+    <div class="card">
+        <div class="card-body register-card-body">
+            <form method="post" th:action="@{/admin/users/add}" th:object="${user}" id="formAddUser">
+                <div class="row">
+                    <div class="col-6">
+                        <input class="user-id-hidden" type="hidden" th:field="${user.userId}">
+                        <div class="input-group mb-3">
+                            <input th:field="*{firstName}"
+                                   type="text" class="form-control"
+                                   th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}"
+                                   placeholder="First Name">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input th:field="*{email}" type="email"
-                               class="form-control"
-                               placeholder="Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <input th:field="*{lastName}"
+                                   type="text" class="form-control"
+                                   placeholder="Last Name">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3 password">
-                        <input id="inputPassword" th:field="*{password}" type="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
+                </div>
+                <div class="input-group mb-3 email">
+                    <input th:field="*{email}" type="email"
+                           class="form-control"
+                           placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
                         </div>
                     </div>
-                    <div class="input-group mb-3 password">
-                        <input th:name="confirm" id="inputConfirmedPassword" type="password" class="form-control" placeholder="Retype password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
+                </div>
+                <div class="input-group mb-3 password">
+                    <input id="inputPassword" th:field="*{password}" type="password" class="form-control"
+                           placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <a type="button" class="btn bg-gradient-info btn-block">Cancel</a>
-                        </div>
-                        <div class="col-6">
-                            <button id="btnSaveUser"
-                                    type="submit"
-                                    class="btn bg-gradient-green btn-block">Register</button>
+                </div>
+                <div class="input-group mb-3 password">
+                    <input th:name="confirm" id="inputConfirmedPassword" type="password" class="form-control"
+                           placeholder="Retype password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
                         </div>
                     </div>
-                </form>
-            </div>
-            <!-- /.form-box -->
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a type="button" class="btn bg-gradient-info btn-block">Cancel</a>
+                    </div>
+                    <div class="col-6">
+                        <button id="btnSaveUser"
+                                type="submit"
+                                class="btn bg-gradient-green btn-block">Register
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div th:replace="~{/fragments/modal :: modalMessage(message = ${ErrorMessage})}">
-
-        </div>
+        <!-- /.form-box -->
     </div>
+    <div th:replace="~{/fragments/modal :: modalMessage(message = ${ErrorMessage})}">
+
+    </div>
+</div>
 <th:block layout:fragment="scripts">
     <script type="text/javascript" th:inline="javascript">
-        if ([[${is_update}]]){
+        if ([[${is_update}]]) {
             $('.password').css('display', 'none');
+            $('.email').css('display', 'none');
             let id = $('.user-id-hidden').val();
             $('#formAddUser').attr('action', '/admin/users/update/' + id);
         }

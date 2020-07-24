@@ -3,6 +3,7 @@ package com.kimhong.thymeleaf;
 import com.kimhong.thymeleaf.model.User;
 import com.kimhong.thymeleaf.service.Imp.ArticleServiceImp;
 import com.kimhong.thymeleaf.service.Imp.UserServiceImp;
+import com.kimhong.thymeleaf.utils.Paging;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +20,7 @@ class ThymeleafThymeleafApplicationTests {
     private ArticleServiceImp articleService;
 
     @Test
-    void saveUser(){
+    void saveUser() {
         User insertUser = new User();
         insertUser.setUserId(UUID.randomUUID().toString());
         insertUser.setFirstName("Test First");
@@ -27,18 +28,17 @@ class ThymeleafThymeleafApplicationTests {
         insertUser.setEmail("@gmail.com");
         insertUser.setPassword("123456");
         User user = userService.saveUser(insertUser);
-        if (user != null){
+        if (user != null) {
             System.out.println("User is saved");
             System.out.println(user);
-        }
-        else{
+        } else {
             System.out.println("User cannot be saved");
         }
     }
 
     @Test
-    void findAll(){
-        List<User> users = userService.findAll();
+    void findAll(Paging page) {
+        List<User> users = userService.findAll(page);
         for (User user :
                 users) {
             System.out.println(user.toString());
@@ -46,7 +46,7 @@ class ThymeleafThymeleafApplicationTests {
     }
 
     @Test
-    void updateByUserId(){
+    void updateByUserId() {
         User user = new User();
         String testId = "d7502d08-2c87-4164-b80b-aa09b6bcc385";
         user.setUserId(testId);
@@ -56,12 +56,12 @@ class ThymeleafThymeleafApplicationTests {
     }
 
     @Test
-    void findOne(){
+    void findOne() {
         System.out.println(userService.findOne("e1dcb0b1-7bb1-41d0-9684-59860b0c1ff8"));
     }
 
     @Test
-    void deleteByUserId(){
+    void deleteByUserId() {
         String userId = "86ea4138-3978-4e42-9a1e-42a49aba2143";
         userService.deleteByUserId(userId);
     }
@@ -72,7 +72,7 @@ class ThymeleafThymeleafApplicationTests {
     }
 
     @Test
-    void showAllArticle(){
+    void showAllArticle() {
         articleService.findAll();
     }
 

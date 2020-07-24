@@ -1,4 +1,5 @@
 package com.kimhong.thymeleaf.model;
+
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 

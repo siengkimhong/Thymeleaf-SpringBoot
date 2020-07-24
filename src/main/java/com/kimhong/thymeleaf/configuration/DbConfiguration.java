@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 public class DbConfiguration {
 
     @Bean
-    public DataSource configurationDb(){
+    public DataSource configurationDb() {
         DataSourceBuilder builder = DataSourceBuilder.create();
         builder.driverClassName("org.postgresql.Driver");
         builder.url("jdbc:postgresql://localhost:5432/ams");

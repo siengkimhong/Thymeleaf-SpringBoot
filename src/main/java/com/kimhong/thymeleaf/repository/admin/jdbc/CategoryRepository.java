@@ -13,6 +13,7 @@ public interface CategoryRepository {
     int edit(Category category);
 
     Category find(int id);
+
     int delete(int id);
 
 }

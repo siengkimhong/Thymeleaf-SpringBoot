@@ -14,7 +14,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/admin/categories")
 public class CategoryController {
-    private String CATEGORY_VIEW_NAME ="admin/category";
+    private String CATEGORY_VIEW_NAME = "admin/category";
     private CategoryServiceImp categoryService;
 
     @Autowired
@@ -23,7 +23,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public String categoryView(@ModelAttribute("category") Category category, ModelMap map){
+    public String categoryView(@ModelAttribute("category") Category category, ModelMap map) {
 
         map.addAttribute("categoryList", categoryService.findAll());
         map.addAttribute("category", category);
@@ -34,11 +34,11 @@ public class CategoryController {
     public String saveCategory(@Valid @ModelAttribute("category") Category category,
                                BindingResult result,
                                RedirectAttributes redirect,
-                               ModelMap map){
-        if (result.hasErrors()){
+                               ModelMap map) {
+        if (result.hasErrors()) {
             return categoryView(category, map);
         }
-        if (categoryService.save(category) != null){
+        if (categoryService.save(category) != null) {
             redirect.addFlashAttribute("successful", "message");
             redirect.addFlashAttribute("true", "isSave");
         }
@@ -48,10 +48,9 @@ public class CategoryController {
 
     @PostMapping("/{id}")
     public String editCategory(@Valid @ModelAttribute("category") Category category,
-                               RedirectAttributes redirect){
+                               RedirectAttributes redirect) {
 
-        if (categoryService.edit(category) != null)
-        {
+        if (categoryService.edit(category) != null) {
             redirect.addFlashAttribute("successful", "message");
             redirect.addFlashAttribute("true", "isSave");
         }
@@ -59,7 +58,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteCategory(@PathVariable int id){
+    public String deleteCategory(@PathVariable int id) {
         categoryService.delete(id);
         return "redirect:/admin/categories";
     }

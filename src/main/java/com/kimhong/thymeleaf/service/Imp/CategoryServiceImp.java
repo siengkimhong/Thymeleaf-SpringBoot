@@ -46,7 +46,7 @@ public class CategoryServiceImp implements CategoryService {
     @Override
     public void delete(int id) {
         if (categoryRepository.find(id) != null)
-             categoryRepository.delete(id);
+            categoryRepository.delete(id);
 
     }
 }

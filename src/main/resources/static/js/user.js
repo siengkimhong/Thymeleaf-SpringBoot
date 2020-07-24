@@ -3,10 +3,10 @@ $(function () {
         e.preventDefault();
         let password = $('#inputPassword').val();
         let confirmPassword = $('#inputConfirmedPassword').val();
-        if (password !== confirmPassword){
+        if (password !== confirmPassword) {
             $('#messagePassbyJS').text("Passwod is not matched");
             $('#modalMessage').modal('show');
-        }else {
+        } else {
             $('#formAddUser').submit();
         }
     });

@@ -12,6 +12,7 @@ import java.util.List;
 public class ArticleServiceImp implements ArticleService {
 
     final private ArticleRepositoryImp articleRepository;
+
     @Autowired
     public ArticleServiceImp(ArticleRepositoryImp articleRepository) {
         this.articleRepository = articleRepository;

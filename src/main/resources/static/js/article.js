@@ -8,7 +8,7 @@ $(function () {
         let thumbnail = $(this).data('thumbnail');
         let categoryId = $(this).data('category-id');
         $('#modalArticle').modal('show');
-        $('#article-form').attr("action","/admin/articles/" + articleId + "/update");
+        $('#article-form').attr("action", "/admin/articles/" + articleId + "/update");
         $('#categoryId').val(categoryId);
         $('#article-title').val(title);
         $('#article-description').val(description);

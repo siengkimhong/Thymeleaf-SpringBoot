@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -39,7 +40,7 @@ public class ArticleController {
     }
 
     @GetMapping
-    public String articleView(ModelMap map, @ModelAttribute Article article){
+    public String articleView(ModelMap map, @ModelAttribute Article article) {
         map.addAttribute("categories", categoryService.findAll());
         map.addAttribute("article", article);
         map.addAttribute("articles", articleService.findAll());
@@ -49,7 +50,7 @@ public class ArticleController {
 
     @PostMapping
     public String saveArticle(@ModelAttribute Article article,
-                              @RequestParam("file")MultipartFile file) throws IOException {
+                              @RequestParam("file") MultipartFile file) throws IOException {
 
         String fileName = file.getOriginalFilename();
         String uri = UUID.randomUUID() + fileName.substring(fileName.indexOf("."));
@@ -67,7 +68,7 @@ public class ArticleController {
                                     @ModelAttribute Article newArticle,
                                     @RequestParam("file") MultipartFile file) throws IOException {
 
-        if (!file.isEmpty()){
+        if (!file.isEmpty()) {
             String fileName = file.getOriginalFilename();
             String uri = UUID.randomUUID() + fileName.substring(fileName.indexOf("."));
             Files.copy(file.getInputStream(), Paths.get(serverPath + uri));
@@ -81,7 +82,7 @@ public class ArticleController {
 
 
     @GetMapping("/{articleId}/delete")
-    public String deleteArticleById(@PathVariable String articleId){
+    public String deleteArticleById(@PathVariable String articleId) {
         articleService.delete(articleId);
         return "redirect:" + MAIN_URL;
     }

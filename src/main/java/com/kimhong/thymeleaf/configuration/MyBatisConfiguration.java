@@ -22,11 +22,11 @@ public class MyBatisConfiguration {
     }
 
     @Bean
-    public DataSourceTransactionManager dataSourceTransactionManager(){
+    public DataSourceTransactionManager dataSourceTransactionManager() {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    public SqlSessionFactoryBean sqlSessionFactoryBean(){
+    public SqlSessionFactoryBean sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         return bean;

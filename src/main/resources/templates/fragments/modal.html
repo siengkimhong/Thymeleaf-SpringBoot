@@ -1,5 +1,5 @@
-
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalConfirmDelete" class="modal fade show" id="modalConfirmDelete" aria-modal="true">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalConfirmDelete" class="modal fade show"
+     id="modalConfirmDelete" aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,8 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalArticle(action)" class="modal fade show" id="modalArticle" aria-modal="true">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalArticle(action)" class="modal fade show" id="modalArticle"
+     aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -30,20 +31,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="article-form" role="form" method="post" th:action="@{/admin/articles}" th:object="${article}" enctype="multipart/form-data">
+                <form id="article-form" role="form" method="post" th:action="@{/admin/articles}" th:object="${article}"
+                      enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="form-group">
                             <label>Category</label>
                             <select id="categoryId" class="custom-select" th:field="*{category.id}">
                                 <option disabled="disabled"
                                         selected="selected"
-                                        value=0>Choose category...</option>
-                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                        value=0>Choose category...
+                                </option>
+                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                        th:text="${category.name}"></option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Title</label>
-                            <input id="article-title" th:field="*{title}" type="text" class="form-control" placeholder="Enter title...">
+                            <input id="article-title" th:field="*{title}" type="text" class="form-control"
+                                   placeholder="Enter title...">
                         </div>
                         <div class="form-group">
                             <label>Description</label>
@@ -75,7 +80,8 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalMessage(message)" class="modal fade show" id="modalMessage" aria-modal="true">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalMessage(message)" class="modal fade show" id="modalMessage"
+     aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -93,7 +99,8 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalUser" class="modal fade show" id="modalUser" aria-modal="true">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalUser" class="modal fade show" id="modalUser"
+     aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -103,7 +110,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" method="post" th:action="@{/admin/users}" th:object="${user}" enctype="multipart/form-data">
+                <form role="form" method="post" th:action="@{/admin/users}" th:object="${user}"
+                      enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="form-group">
                             <label>First Name</label>
@@ -130,7 +138,8 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalView" class="modal fade show w-75" id="modalView" aria-modal="true">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalView" class="modal fade show w-75" id="modalView"
+     aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content align-content-center">
             <div class="modal-header">
@@ -154,7 +163,8 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalUserView" class="modal fade show" id="modalUserView" aria-modal="true">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalUserView" class="modal fade show" id="modalUserView"
+     aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

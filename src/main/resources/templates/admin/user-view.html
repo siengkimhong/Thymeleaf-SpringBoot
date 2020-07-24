@@ -41,11 +41,12 @@
                                         class="btn btn-primary btnUserView" type="button">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <a th:href="@{/admin/users/update/{userId}(userId=${user.userId})}" th:data-id="${user.userId}"
-                                        th:data-first-name="${user.firstName}"
-                                        th:data-last-name="${user.lastName}"
-                                        th:data-email="${user.email}"
-                                        class="btn btn-primary btnUserEdit" type="button">
+                                <a th:href="@{/admin/users/update/{userId}(userId=${user.userId})}"
+                                   th:data-id="${user.userId}"
+                                   th:data-first-name="${user.firstName}"
+                                   th:data-last-name="${user.lastName}"
+                                   th:data-email="${user.email}"
+                                   class="btn btn-primary btnUserEdit" type="button">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <button th:data-id="${user.userId}"
@@ -57,8 +58,45 @@
 
                         </tbody>
                     </table>
+
                 </div>
                 <!-- /.card-body -->
+                <div class="card-footer" th:if="${paging.getTotalPages()} > 1">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item previous"
+                                        th:classappend="${paging.page ==1 }?'disabled':''"
+                                        id="example2_previous">
+                                        <a th:href="@{/admin/users/(page=${paging.previousPage}, keyword=${keyword})}"
+                                           aria-controls="example2"
+                                           data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                    </li>
+
+                                    <li class="paginate_button page-item"
+                                        th:classappend="${paging.page==i}?'active':''"
+                                        th:each="i : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+                                        <a th:href="@{/admin/users(page=${i}, keyword=${keyword})}" th:text="${i}"
+                                           aria-controls="example2"
+                                           data-dt-idx="1"
+                                           tabindex="0"
+                                           class="page-link">1</a>
+                                    </li>
+
+                                    <li class="paginate_button page-item next"
+                                        th:classappend="${paging.page}==${paging.totalPages}?'disabled':''"
+                                        id="example2_next">
+                                        <a th:href="@{/admin/users/(page=${paging.nextPage},keyword=${keyword})}"
+                                           aria-controls="example2"
+                                           data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- /.card -->
         </div>
@@ -69,6 +107,7 @@
 </div>
 <th:block layout:fragment="scripts">
     <script type="text/javascript" th:inline="javascript">
+        $('#global-search').attr('action', '/admin/users');
         $('.btnUserDelete').on('click', function (e) {
             e.preventDefault();
             let userId = $(this).data('id');

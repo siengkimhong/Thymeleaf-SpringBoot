@@ -3,6 +3,7 @@ package com.kimhong.thymeleaf.service.Imp;
 import com.kimhong.thymeleaf.model.User;
 import com.kimhong.thymeleaf.repository.admin.mybatis.UserRepository;
 import com.kimhong.thymeleaf.service.UserService;
+import com.kimhong.thymeleaf.utils.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<User> findAll(Paging paging) {
+        paging.setTotalCount(userRepository.countUser());
+        return userRepository.findAll(paging);
     }
 
     @Override
@@ -35,11 +37,17 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User updateByUserId(User newUser) {
-        return userRepository.updateByUserId(newUser)? newUser : null;
+        return userRepository.updateByUserId(newUser) ? newUser : null;
     }
 
     @Override
     public void deleteByUserId(String userId) {
         userRepository.deleteByUserId(userId);
+    }
+
+    @Override
+    public List<User> searchUserByKeyword(String keyword, Paging paging) {
+        paging.setTotalCount(userRepository.countSearchResult(keyword));
+        return userRepository.searchUserByKeyword(keyword, paging);
     }
 }
