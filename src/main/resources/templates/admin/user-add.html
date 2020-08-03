@@ -17,9 +17,22 @@
     <div class="card">
         <div class="card-body register-card-body">
             <form method="post" th:action="@{/admin/users/add}" th:object="${user}" id="formAddUser">
+                <div class="input-group mb-3">
+                    <select class="custom-select" th:field="*{roles[0].id}">
+                        <option disabled="disabled"
+                                selected="selected"
+                                value=0>Choose Role...
+                        </option>
+                        <option th:each="role : ${roles}"
+                                th:value="${role.id}"
+                                th:text="${role.name}">
+                        </option>
+                    </select>
+                </div>
                 <div class="row">
                     <div class="col-6">
-                        <input class="user-id-hidden" type="hidden" th:field="${user.userId}">
+                        <input class="user-id-hidden" type="hidden" th:field="*{id}">
+                        <input class="user-id-hidden" type="hidden" th:field="*{userId}">
                         <div class="input-group mb-3">
                             <input th:field="*{firstName}"
                                    type="text" class="form-control"

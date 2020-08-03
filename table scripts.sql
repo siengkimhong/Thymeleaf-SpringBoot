@@ -31,3 +31,16 @@ create table users(
     status boolean default true
 );
 alter table users owner to postgres;
+
+create table roles(
+  id serial2 primary key ,
+  name varchar(20)
+);
+
+create table users_roles(
+    id serial2 primary key ,
+    user_id int8,
+    role_id int2,
+    foreign key (user_id) references users(id),
+    foreign key (role_id) references roles(id)
+);

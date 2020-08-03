@@ -1,12 +1,14 @@
 package com.kimhong.thymeleaf;
 
 import com.kimhong.thymeleaf.model.User;
+import com.kimhong.thymeleaf.repository.admin.mybatis.UserRepository;
 import com.kimhong.thymeleaf.service.Imp.ArticleServiceImp;
 import com.kimhong.thymeleaf.service.Imp.UserServiceImp;
 import com.kimhong.thymeleaf.utils.Paging;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +20,12 @@ class ThymeleafThymeleafApplicationTests {
     private UserServiceImp userService;
     @Autowired
     private ArticleServiceImp articleService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Test
     void saveUser() {
@@ -74,6 +82,22 @@ class ThymeleafThymeleafApplicationTests {
     @Test
     void showAllArticle() {
         articleService.findAll();
+    }
+
+    @Test
+    void selectUserByEmail(){
+        User user= userRepository.selectUserByEmail("dara@gmail.com");
+        System.out.println(user);
+    }
+
+    @Test
+    void selectRoleByUserId(){
+        System.out.println(userRepository.selectRoleByUserId(2));
+    }
+
+    @Test
+    void generatePassword(){
+        System.out.println(encoder.encode("123"));
     }
 
 }

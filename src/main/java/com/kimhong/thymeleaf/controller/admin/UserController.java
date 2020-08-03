@@ -1,10 +1,13 @@
 package com.kimhong.thymeleaf.controller.admin;
 
 import com.kimhong.thymeleaf.model.User;
+import com.kimhong.thymeleaf.service.Imp.RoleServiceImpl;
 import com.kimhong.thymeleaf.service.Imp.UserServiceImp;
+import com.kimhong.thymeleaf.service.RoleService;
 import com.kimhong.thymeleaf.utils.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,18 +26,26 @@ public class UserController {
     private final String ADD_USER_VIEW = "/admin/user-add";
     private final String ADD_USER_URL = "/admin/users/add";
     private final String VIEW_USER_URL = "/admin/users";
-    private final UserServiceImp userService;
-
+    private UserServiceImp userService;
+    private RoleServiceImpl roleService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserServiceImp userService) {
+    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @Autowired
+    public UserController(UserServiceImp userService, RoleServiceImpl roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/add")
     public String addUserView(@ModelAttribute User user,
                               ModelMap map) {
         map.addAttribute("user", user);
+        map.addAttribute("roles", roleService.select());
         return ADD_USER_VIEW;
     }
 
@@ -50,6 +61,7 @@ public class UserController {
         }
 
         user.setUserId(UUID.randomUUID().toString());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
         return "redirect:/admin/users/add";
     }
@@ -67,15 +79,16 @@ public class UserController {
             users = userService.searchUserByKeyword(keyword, paging);
         }
         map.addAttribute("users", users);
+
         map.addAttribute("paging", paging);
         map.addAttribute("keyword", keyword);
-        System.out.println(keyword);
         return "/admin/user-view";
     }
 
     @GetMapping("/update/{userId}")
     public String updateUserView(@PathVariable String userId, ModelMap map) {
         map.addAttribute("user", userService.findOne(userId));
+        map.addAttribute("roles", roleService.select());
         map.addAttribute("is_update", true);
         return ADD_USER_VIEW;
     }

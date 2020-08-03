@@ -1,10 +1,13 @@
 package com.kimhong.thymeleaf.controller.admin;
 
 import com.kimhong.thymeleaf.model.Article;
+import com.kimhong.thymeleaf.model.User;
 import com.kimhong.thymeleaf.service.Imp.ArticleServiceImp;
 import com.kimhong.thymeleaf.service.Imp.CategoryServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -52,11 +55,15 @@ public class ArticleController {
     public String saveArticle(@ModelAttribute Article article,
                               @RequestParam("file") MultipartFile file) throws IOException {
 
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        User authUser = ((User) authentication.getPrincipal());
+
         String fileName = file.getOriginalFilename();
         String uri = UUID.randomUUID() + fileName.substring(fileName.indexOf("."));
         Files.copy(file.getInputStream(), Paths.get(serverPath + uri));
         article.setArticleId(UUID.randomUUID().toString());
-        article.setAuthor("Admin");
+        article.setAuthor(authUser.getFirstName() + " " + authUser.getLastName());
         article.setPublishedDate(new Date(System.currentTimeMillis()));
         article.setThumbnail(uri);
         articleService.save(article);

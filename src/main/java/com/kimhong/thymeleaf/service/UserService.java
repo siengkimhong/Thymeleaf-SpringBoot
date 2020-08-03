@@ -3,12 +3,13 @@ package com.kimhong.thymeleaf.service;
 
 import com.kimhong.thymeleaf.model.User;
 import com.kimhong.thymeleaf.utils.Paging;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     User saveUser(User newUser);
 

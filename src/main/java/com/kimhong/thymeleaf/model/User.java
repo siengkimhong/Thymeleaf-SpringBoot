@@ -1,10 +1,15 @@
 package com.kimhong.thymeleaf.model;
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
-public class User implements Serializable {
+public class    User implements Serializable, UserDetails {
     private int id;
     private String userId;
 
@@ -18,10 +23,12 @@ public class User implements Serializable {
     private String password;
     private boolean status;
 
+    private List<Role> roles;
+
     public User() {
     }
 
-    public User(int id, String userId, String firstName, String lastName, String email, String password, boolean status) {
+    public User(int id, String userId, String firstName, String lastName, String email, String password, boolean status, List<Role> roles) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -29,6 +36,7 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.status = status;
+        this.roles = roles;
     }
 
     public int getId() {
@@ -87,6 +95,14 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -97,6 +113,37 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", status=" + status +
+                ", roles=" + roles +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

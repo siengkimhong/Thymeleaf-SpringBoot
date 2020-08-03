@@ -5,8 +5,11 @@ import com.kimhong.thymeleaf.repository.admin.mybatis.UserRepository;
 import com.kimhong.thymeleaf.service.UserService;
 import com.kimhong.thymeleaf.utils.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +24,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User saveUser(User newUser) {
-        return userRepository.saveUser(newUser) ? newUser : null;
+        if (userRepository.saveUser(newUser)){
+            if (userRepository.createUserRole(newUser)){
+                return newUser;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -37,7 +45,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User updateByUserId(User newUser) {
-        return userRepository.updateByUserId(newUser) ? newUser : null;
+        if (userRepository.updateByUserId(newUser)){
+            if (userRepository.updateUserRole(newUser)){
+                return newUser;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -49,5 +62,10 @@ public class UserServiceImp implements UserService {
     public List<User> searchUserByKeyword(String keyword, Paging paging) {
         paging.setTotalCount(userRepository.countSearchResult(keyword));
         return userRepository.searchUserByKeyword(keyword, paging);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.selectUserByEmail(email);
     }
 }

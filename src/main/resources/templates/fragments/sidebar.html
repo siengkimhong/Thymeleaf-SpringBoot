@@ -1,4 +1,7 @@
-<aside xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar" class="main-sidebar sidebar-dark-primary elevation-4">
+<aside xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+       th:fragment="sidebar"
+       class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
         <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -14,7 +17,9 @@
                 <img src="/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Kimhong</a>
+                <a href="#"
+                   class="d-block"
+                   th:text="${#authentication.principal.firstName + ' ' + #authentication.principal.lastName}">Log user</a>
             </div>
         </div>
 
@@ -23,7 +28,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
@@ -32,8 +37,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                <li class="nav-item has-treeview" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             User Management
@@ -74,6 +79,18 @@
                     </a>
                 </li>
             </ul>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a th:href="@{/admin/logout}" class="nav-link">
+                        <i class="nav-icon fas fa-door-open"></i>
+                        <p>Log out</p>
+                    </a>
+                </li>
+            </ul>
+
         </nav>
         <!-- /.sidebar-menu -->
     </div>
