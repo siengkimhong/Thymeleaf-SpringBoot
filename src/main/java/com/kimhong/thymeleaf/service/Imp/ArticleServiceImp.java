@@ -27,6 +27,8 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public List<Article> findAll() {
+
+        System.out.println(articleRepository.findAll());
         return articleRepository.findAll();
     }
 
